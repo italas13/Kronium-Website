@@ -1,5 +1,5 @@
 {
-  "name": "kronium-website",
+  "name": "kronium",
   "compatibility_date": "2026-09-06",
   "assets": {
     "directory": "./dist",
