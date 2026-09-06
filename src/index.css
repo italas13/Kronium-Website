@@ -1,0 +1,560 @@
+@import "tailwindcss";
+
+@theme {
+  /* ── Color tokens ─────────────────────────────────────────────────── */
+  --color-canvas:        oklch(0.13 0.02 265);
+  --color-surface:       oklch(0.17 0.025 265);
+  --color-surface-2:     oklch(0.20 0.025 265);
+  --color-border:        oklch(0.30 0.03 260 / 60%);
+  --color-border-subtle: oklch(0.22 0.02 260 / 40%);
+
+  --color-primary:       oklch(0.62 0.20 255);
+  --color-primary-dim:   oklch(0.52 0.18 255);
+  --color-accent:        oklch(0.72 0.16 200);
+
+  --color-text:          oklch(0.92 0.01 265);
+  --color-text-muted:    oklch(0.60 0.02 265);
+  --color-text-faint:    oklch(0.40 0.02 265);
+
+  /* ── Fonts ────────────────────────────────────────────────────────── */
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background-color: var(--color-canvas);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+/* ── Gradient text helper ─────────────────────────────────────────── */
+.grad-text {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Glassmorphism card ───────────────────────────────────────────── */
+.glass {
+  background: oklch(0.17 0.025 265 / 70%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+}
+
+.glass-inner {
+  box-shadow: inset 0 1px 0 oklch(1 0 0 / 6%);
+}
+
+/* ── Glow effects ─────────────────────────────────────────────────── */
+.glow-blue {
+  box-shadow: 0 0 24px oklch(0.62 0.20 255 / 20%),
+              0 0 60px oklch(0.62 0.20 255 / 8%);
+}
+
+.glow-text {
+  text-shadow: 0 0 20px oklch(0.62 0.20 255 / 50%);
+}
+
+/* ── Badge ────────────────────────────────────────────────────────── */
+.badge-primary {
+  background: oklch(0.62 0.20 255 / 15%);
+  color: var(--color-primary);
+  border: 1px solid oklch(0.62 0.20 255 / 30%);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 2px 10px;
+  text-transform: uppercase;
+}
+
+.badge-muted {
+  background: oklch(0.30 0.02 265 / 40%);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 10px;
+}
+
+/* ── Buttons ──────────────────────────────────────────────────────── */
+.btn-primary {
+  background: var(--color-primary);
+  color: oklch(0.08 0.01 265);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 22px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-primary:hover {
+  background: var(--color-accent);
+  box-shadow: 0 0 20px oklch(0.62 0.20 255 / 35%);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 10px 22px;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-outline:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  box-shadow: 0 0 12px oklch(0.62 0.20 255 / 15%);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-text-muted);
+  border: none;
+  padding: 8px 14px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+.btn-ghost:hover {
+  color: var(--color-text);
+  background: oklch(0.22 0.02 265 / 60%);
+}
+
+/* ── Spec pill ────────────────────────────────────────────────────── */
+.spec-pill {
+  background: oklch(0.22 0.03 265 / 80%);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 999px;
+  font-size: 11px;
+  padding: 2px 8px;
+}
+
+/* ── CSS grid overlay ─────────────────────────────────────────────── */
+/* Applied to body so it spans the whole page and fades naturally */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(oklch(0.62 0.20 255 / 3%) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(0.62 0.20 255 / 3%) 1px, transparent 1px);
+  background-size: 40px 40px;
+  /* Fade out toward the bottom so it doesn't clash with content sections */
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 40%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 40%, transparent 100%);
+}
+
+/* Keep .grid-overlay class but make it a no-op since body::before handles it */
+.grid-overlay {
+  display: none;
+}
+
+/* ── Scrollbar ────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: oklch(0.30 0.03 260);
+  border-radius: 3px;
+}
+
+/* ── Code / mono block ────────────────────────────────────────────── */
+.code-block {
+  background: oklch(0.10 0.02 265);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 8px;
+  padding: 16px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: var(--color-accent);
+  overflow-y: auto;
+  max-height: 420px;
+  white-space: pre;
+  line-height: 1.7;
+}
+
+/* ── Nav link ─────────────────────────────────────────────────────── */
+.nav-link {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+  font-family: var(--font-body);
+  font-weight: 500;
+}
+.nav-link:hover {
+  color: var(--color-text);
+  background: oklch(0.22 0.02 265 / 60%);
+}
+.nav-link.active {
+  color: var(--color-primary);
+  background: oklch(0.62 0.20 255 / 10%);
+}
+
+/* ── Animations ───────────────────────────────────────────────────── */
+
+/* ── Keyframes ───── */
+
+/* Page transition: blur + scale + fade + slide */
+@keyframes pageEnter {
+  0%   { opacity: 0; transform: translateY(20px) scale(0.985); filter: blur(4px); }
+  60%  { filter: blur(0); }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+/* Scan-line sweep that plays once on page enter */
+@keyframes scanLine {
+  0%   { top: -2px; opacity: 0.6; }
+  100% { top: 110%; opacity: 0; }
+}
+
+/* Header drops in with a spring */
+@keyframes headerEnter {
+  0%   { opacity: 0; transform: translateY(-110%) scaleY(0.8); }
+  70%  { transform: translateY(4px) scaleY(1.01); }
+  100% { opacity: 1; transform: translateY(0) scaleY(1); }
+}
+
+/* Hero elements */
+@keyframes fadeInUp {
+  0%   { opacity: 0; transform: translateY(22px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInDown {
+  0%   { opacity: 0; transform: translateY(-14px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Glow orb float */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) scale(1);    }
+  50%       { transform: translateY(-12px) scale(1.04); }
+}
+
+/* Subtle shimmer sweep on cards */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Neon pulse on active nav */
+@keyframes navPulse {
+  0%, 100% { box-shadow: 0 0 8px oklch(0.62 0.20 255 / 30%),  0 0 16px oklch(0.62 0.20 255 / 10%); }
+  50%       { box-shadow: 0 0 16px oklch(0.62 0.20 255 / 60%), 0 0 32px oklch(0.62 0.20 255 / 20%); }
+}
+
+/* Border glow trace around cards */
+@keyframes borderTrace {
+  0%   { background-position: 0% 50%;   }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%;   }
+}
+
+/* Glowing dot pulse */
+@keyframes dotPulse {
+  0%, 100% { transform: scale(1);   opacity: 1; }
+  50%       { transform: scale(1.5); opacity: 0.7; }
+}
+
+/* ── Page wrapper ─── */
+.page-transition {
+  animation: pageEnter 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+  position: relative;
+}
+
+/* Scan line overlay on page enter */
+.page-transition::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    oklch(0.62 0.20 255 / 80%) 30%,
+    oklch(0.72 0.16 200 / 80%) 70%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 9999;
+  animation: scanLine 0.6s cubic-bezier(0.4, 0, 0.6, 1) 0.05s both;
+}
+
+/* ── Header ─── */
+.header-entrance {
+  animation: headerEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transform-origin: top center;
+}
+
+/* ── Nav links ─── */
+.nav-link {
+  position: relative;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+/* Animated underline track */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  border-radius: 999px;
+  transform: translateX(-50%);
+  transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 8px oklch(0.62 0.20 255 / 50%);
+}
+
+.nav-link.active::after {
+  width: 70%;
+}
+
+/* Active nav glows */
+.nav-link.active {
+  animation: navPulse 2.5s ease-in-out infinite;
+}
+
+/* ── Hero stagger ─── */
+.hero-badge { animation: fadeInDown 0.5s 0.05s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.hero-title { animation: fadeInUp   0.6s 0.12s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.hero-sub   { animation: fadeInUp   0.6s 0.22s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.hero-ctas  { animation: fadeInUp   0.6s 0.32s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.hero-tabs  { animation: fadeInUp   0.6s 0.42s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* ── Stagger children ─── */
+.stagger > *:nth-child(1) { animation-delay: 0ms; }
+.stagger > *:nth-child(2) { animation-delay: 70ms; }
+.stagger > *:nth-child(3) { animation-delay: 140ms; }
+.stagger > *:nth-child(4) { animation-delay: 210ms; }
+.stagger > *:nth-child(5) { animation-delay: 280ms; }
+.stagger > *:nth-child(6) { animation-delay: 350ms; }
+.stagger > *:nth-child(7) { animation-delay: 420ms; }
+.stagger > *:nth-child(8) { animation-delay: 490ms; }
+
+/* ── Utility entrance classes ─── */
+.animate-fade-in-up { animation: fadeInUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-fade-in    { animation: fadeIn   0.4s ease both; }
+
+/* ── Buttons ─── */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shimmer sweep on hover */
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    oklch(1 0 0 / 18%) 50%,
+    transparent 70%
+  );
+  background-size: 200% 100%;
+  background-position: -200% center;
+  transition: background-position 0s;
+}
+.btn-primary:hover::after {
+  background-position: 200% center;
+  transition: background-position 0.5s ease;
+}
+
+.btn-primary:hover {
+  background: var(--color-accent);
+  box-shadow:
+    0 0 20px oklch(0.62 0.20 255 / 40%),
+    0 0 60px oklch(0.62 0.20 255 / 15%),
+    inset 0 1px 0 oklch(1 0 0 / 15%);
+  transform: translateY(-2px);
+}
+
+.btn-primary:active {
+  transform: translateY(0) scale(0.97);
+  box-shadow: 0 0 8px oklch(0.62 0.20 255 / 30%);
+}
+
+.btn-outline:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  box-shadow:
+    0 0 14px oklch(0.62 0.20 255 / 20%),
+    inset 0 0 20px oklch(0.62 0.20 255 / 5%);
+  transform: translateY(-1px);
+}
+
+.btn-outline:active {
+  transform: scale(0.97);
+}
+
+/* ── Card hover lift ─── */
+.card-hover {
+  transition:
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.25s ease,
+    border-color 0.2s ease;
+}
+.card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 12px 40px oklch(0.62 0.20 255 / 14%),
+    0 4px 12px oklch(0 0 0 / 40%);
+}
+
+/* ── Glass cards ─── */
+.glass {
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+/* Shimmer border on hover */
+.glass:hover {
+  box-shadow:
+    inset 0 1px 0 oklch(1 0 0 / 8%),
+    0 0 0 1px oklch(0.62 0.20 255 / 0%);
+}
+
+/* ── Floating glow orb ─── */
+.glow-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* ── Glowing pulse dot ─── */
+.dot-pulse {
+  animation: dotPulse 2s ease-in-out infinite;
+}
+
+/* ── Extras ───────────────────────────────────────────────────────── */
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* page-enter is an alias for page-transition used on static page wrappers */
+.page-enter {
+  animation: pageEnter 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.page-enter::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    oklch(0.62 0.20 255 / 80%) 30%,
+    oklch(0.72 0.16 200 / 80%) 70%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 9999;
+  animation: scanLine 0.6s cubic-bezier(0.4, 0, 0.6, 1) 0.05s both;
+}
+
+/* ── Discord button shimmer on auth page ──────────────────────────── */
+button[style*="#5865F2"]::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255,255,255,0.15) 50%,
+    transparent 70%
+  );
+  background-size: 200% 100%;
+  background-position: -200% center;
+  transition: background-position 0s;
+  border-radius: inherit;
+}
+button[style*="#5865F2"]:hover::after {
+  background-position: 200% center;
+  transition: background-position 0.5s ease;
+}
+
+/* ── Collapsible section header transitions ───────────────────────── */
+.glass > div[style*="cursor: pointer"] {
+  transition: background 0.15s ease;
+}
+
+/* ── Row hover transitions ────────────────────────────────────────── */
+div[style*="borderBottom"][style*="cursor: pointer"] {
+  transition: background 0.12s ease, border-color 0.15s ease;
+}
+
+/* ── Badge hover ──────────────────────────────────────────────────── */
+span[style*="border-radius: 999px"] {
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+span[style*="border-radius: 999px"]:hover {
+  transform: scale(1.04);
+}
+
+/* ── Input focus glow ─────────────────────────────────────────────── */
+input:focus {
+  box-shadow: 0 0 0 2px oklch(0.62 0.20 255 / 20%) !important;
+}
+
+/* ── Select hover ─────────────────────────────────────────────────── */
+select {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+select:focus {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 2px oklch(0.62 0.20 255 / 20%);
+  outline: none;
+}
+
+/* ── Back button link ─────────────────────────────────────────────── */
+button[style*="background: none"] {
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+button[style*="background: none"]:hover {
+  transform: translateX(-3px);
+}
+
+/* ── Footer fade in ───────────────────────────────────────────────── */
+footer {
+  animation: fadeIn 0.6s 0.5s ease both;
+}
