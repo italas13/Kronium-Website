@@ -23,6 +23,26 @@ export const SOURCES = [
       '/velocitycs2/menu.png', '/velocitycs2/visuals.png',
     ],
   },
+  {
+    id: 'kroniumrobloxext',
+    category: 'roblox',
+    categoryLabel: 'Roblox',
+    name: 'Kronium | Roblox (.exe)',
+    type: 'External',
+    description:
+      'Kronium roblox external cheat',
+    tags: ['Dahood', 'BloxStrike', 'Other Games'],
+    isUpdated: true,
+    virusChecked: true,
+    virusTotalUrl: 'https://www.virustotal.com/gui/file/d10c8f4ebdc2637900d66a0d2078a1af5bfb2f8619857da8487940e023da7a5e?nocache=1',
+    downloadUrl: 'https://github.com/IT4LASSS/Kronium-External/archive/refs/heads/main.zip',
+    // Screenshots — add image URLs or local paths here.
+    // Local files: drop images into public/sources/velocitycs2/ and use '/sources/velocitycs2/menu.png'
+    // External URLs also work: 'https://i.imgur.com/example.png'
+    screenshots: [
+      '',
+    ],
+  },
 ]
 
 // Group sources by category key
